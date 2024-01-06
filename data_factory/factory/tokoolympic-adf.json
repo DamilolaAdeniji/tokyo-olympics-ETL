@@ -1,0 +1,9 @@
+{
+	"name": "tokoolympic-adf",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "ad6bb407-0085-464a-9d94-471734631905",
+		"tenantId": "78a46e0c-cd6e-452e-b13f-585b8efebebc"
+	}
+}
