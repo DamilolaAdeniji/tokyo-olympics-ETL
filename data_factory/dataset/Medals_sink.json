@@ -19,19 +19,6 @@
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
-		"schema": [
-			{
-				"name": "PersonName",
-				"type": "String"
-			},
-			{
-				"name": "Country",
-				"type": "String"
-			},
-			{
-				"name": "Discipline",
-				"type": "String"
-			}
-		]
+		"schema": []
 	}
 }
