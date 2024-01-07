@@ -1,0 +1,24 @@
+{
+	"name": "8am_trigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "ingest-data",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Hour",
+				"interval": 5,
+				"startTime": "2024-01-06T08:00:00",
+				"timeZone": "W. Central Africa Standard Time"
+			}
+		}
+	}
+}
