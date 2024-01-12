@@ -1065,6 +1065,7 @@
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
 					"blobPathBeginsWith": "/tokyo-olympic-data/blobs/transformed_data/athletes/",
+					"blobPathEndsWith": ".csv",
 					"ignoreEmptyBlobs": true,
 					"scope": "[parameters('file_change_properties_typeProperties_scope')]",
 					"events": [
