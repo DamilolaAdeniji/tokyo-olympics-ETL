@@ -6,7 +6,7 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "ingest-data",
+					"referenceName": "ingest-transform-data",
 					"type": "PipelineReference"
 				}
 			}
