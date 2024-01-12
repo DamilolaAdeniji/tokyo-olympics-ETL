@@ -11,11 +11,17 @@
 		"AzureDatabricks1_accessToken": {
 			"value": ""
 		},
+		"AzureSqlDatabase1_connectionString": {
+			"value": ""
+		},
 		"Athletes_properties_typeProperties_url": {
 			"value": "https://raw.githubusercontent.com/darshilparmar/tokyo-olympic-azure-data-engineering-project/main/data/Athletes.csv"
 		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://olympicstokyo.dfs.core.windows.net/"
+		},
+		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+			"value": "0109-233748-32me76jp"
 		},
 		"Coaches_properties_typeProperties_url": {
 			"value": "https://raw.githubusercontent.com/darshilparmar/tokyo-olympic-azure-data-engineering-project/main/data/Coaches.csv"
@@ -29,8 +35,8 @@
 		"Teams_properties_typeProperties_url": {
 			"value": "https://raw.githubusercontent.com/darshilparmar/tokyo-olympic-azure-data-engineering-project/main/data/Teams.csv"
 		},
-		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
-			"value": "0109-233748-32me76jp"
+		"file_change_properties_typeProperties_scope": {
+			"value": "/subscriptions/113aafd2-8a5d-4785-9c43-300b73f587b5/resourceGroups/sample-rg/providers/Microsoft.Storage/storageAccounts/olympicstokyo"
 		},
 		"containerUri": {
 			"value": ""
