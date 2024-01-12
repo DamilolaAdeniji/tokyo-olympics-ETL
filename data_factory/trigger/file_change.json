@@ -2,7 +2,7 @@
 	"name": "file_change",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Started",
+		"runtimeState": "Stopped",
 		"pipelines": [
 			{
 				"pipelineReference": {
@@ -14,6 +14,7 @@
 		"type": "BlobEventsTrigger",
 		"typeProperties": {
 			"blobPathBeginsWith": "/tokyo-olympic-data/blobs/transformed_data/athletes/",
+			"blobPathEndsWith": ".csv",
 			"ignoreEmptyBlobs": true,
 			"scope": "/subscriptions/113aafd2-8a5d-4785-9c43-300b73f587b5/resourceGroups/sample-rg/providers/Microsoft.Storage/storageAccounts/olympicstokyo",
 			"events": [
