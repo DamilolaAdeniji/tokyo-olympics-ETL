@@ -494,7 +494,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DW')]",
+			"name": "[concat(parameters('factoryName'), '/stage_athletes')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
