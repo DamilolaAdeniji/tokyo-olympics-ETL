@@ -90,13 +90,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DelimitedText2",
+						"referenceName": "transformed_athletes",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "DW",
+						"referenceName": "stage_athletes",
 						"type": "DatasetReference"
 					}
 				]
