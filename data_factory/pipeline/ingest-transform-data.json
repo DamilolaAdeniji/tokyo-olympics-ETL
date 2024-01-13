@@ -62,14 +62,7 @@
 			{
 				"name": "Coaches",
 				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "Athletes",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -126,14 +119,7 @@
 			{
 				"name": "EntriesGender",
 				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "Coaches",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -190,14 +176,7 @@
 			{
 				"name": "Medals",
 				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "EntriesGender",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -254,14 +233,7 @@
 			{
 				"name": "Teams",
 				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "Medals",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -320,7 +292,7 @@
 				"type": "DatabricksNotebook",
 				"dependsOn": [
 					{
-						"activity": "Teams",
+						"activity": "breathe",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -640,7 +612,14 @@
 			{
 				"name": "load_stage_entriesgender",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "truncate_stage_entriesgender",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -744,7 +723,14 @@
 			{
 				"name": "load_dim_entriesgender",
 				"type": "SqlServerStoredProcedure",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "load_stage_entriesgender",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -759,6 +745,46 @@
 				"linkedServiceName": {
 					"referenceName": "AzureSqlDatabase1",
 					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "breathe",
+				"type": "Wait",
+				"dependsOn": [
+					{
+						"activity": "Teams",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Medals",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "EntriesGender",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Coaches",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Athletes",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": 10
 				}
 			}
 		],
