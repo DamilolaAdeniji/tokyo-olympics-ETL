@@ -492,7 +492,7 @@
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": false,
-							"wildcardFolderPath": "transformed_data/athletes",
+							"wildcardFolderPath": "transformed_data/coaches",
 							"wildcardFileName": "*.csv",
 							"enablePartitionDiscovery": false
 						},
