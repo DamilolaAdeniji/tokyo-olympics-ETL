@@ -17,6 +17,171 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/stage_coaches')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "Name",
+						"type": "varchar"
+					},
+					{
+						"name": "Country",
+						"type": "varchar"
+					},
+					{
+						"name": "Discipline",
+						"type": "varchar"
+					},
+					{
+						"name": "Event",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "stage",
+					"table": "coaches"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/stage_entriesgender')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "Discipline",
+						"type": "varchar"
+					},
+					{
+						"name": "Female",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Male",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Total",
+						"type": "int",
+						"precision": 10
+					}
+				],
+				"typeProperties": {
+					"schema": "stage",
+					"table": "entriesgender"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/stage_medals')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "Rank",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Team_Country",
+						"type": "varchar"
+					},
+					{
+						"name": "Gold",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Silver",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Bronze",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Total",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Rank_by_Total",
+						"type": "int",
+						"precision": 10
+					}
+				],
+				"typeProperties": {
+					"schema": "stage",
+					"table": "medals"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/stage_teams')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "TeamName",
+						"type": "varchar"
+					},
+					{
+						"name": "Discipline",
+						"type": "varchar"
+					},
+					{
+						"name": "Country",
+						"type": "varchar"
+					},
+					{
+						"name": "Event",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "stage",
+					"table": "teams"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/transformed_athletes')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -83,42 +248,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/stage_coaches')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabase1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "Name",
-						"type": "varchar"
-					},
-					{
-						"name": "Country",
-						"type": "varchar"
-					},
-					{
-						"name": "Discipline",
-						"type": "varchar"
-					},
-					{
-						"name": "Event",
-						"type": "varchar"
-					}
-				],
-				"typeProperties": {
-					"schema": "stage",
-					"table": "coaches"
-				}
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/transformed_entriesgender')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -141,45 +270,6 @@
 					"quoteChar": "\""
 				},
 				"schema": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/stage_entriesgender')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabase1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "Discipline",
-						"type": "varchar"
-					},
-					{
-						"name": "Female",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Male",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Total",
-						"type": "int",
-						"precision": 10
-					}
-				],
-				"typeProperties": {
-					"schema": "stage",
-					"table": "entriesgender"
-				}
 			},
 			"dependsOn": []
 		},
@@ -239,60 +329,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/stage_medals')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabase1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "Rank",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Team_Country",
-						"type": "varchar"
-					},
-					{
-						"name": "Gold",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Silver",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Bronze",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Total",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Rank_by_Total",
-						"type": "int",
-						"precision": 10
-					}
-				],
-				"typeProperties": {
-					"schema": "stage",
-					"table": "medals"
-				}
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/transformed_teams')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -336,43 +372,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/stage_teams')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabase1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "TeamName",
-						"type": "varchar"
-					},
-					{
-						"name": "Discipline",
-						"type": "varchar"
-					},
-					{
-						"name": "Country",
-						"type": "varchar"
-					},
-					{
-						"name": "Event",
-						"type": "varchar"
-					}
-				],
-				"typeProperties": {
-					"schema": "stage",
-					"table": "teams"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ingest-transform-data')]",
+			"name": "[concat(parameters('factoryName'), '/ingest-transform-load-data')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -1866,7 +1866,7 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "ingest-transform-data",
+							"referenceName": "ingest-transform-load-data",
 							"type": "PipelineReference"
 						},
 						"parameters": {}
@@ -1883,7 +1883,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/ingest-transform-data')]"
+				"[concat(variables('factoryId'), '/pipelines/ingest-transform-load-data')]"
 			]
 		},
 		{
