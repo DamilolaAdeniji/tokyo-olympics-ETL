@@ -114,7 +114,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[trun_stage_athletes]"
+					"storedProcedureName": "[dbo].[run_stage_athletes]"
 				},
 				"linkedServiceName": {
 					"referenceName": "AzureSqlDatabase1",
