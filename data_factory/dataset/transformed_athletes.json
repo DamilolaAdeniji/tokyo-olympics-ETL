@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText2",
+	"name": "transformed_athletes",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage1",
