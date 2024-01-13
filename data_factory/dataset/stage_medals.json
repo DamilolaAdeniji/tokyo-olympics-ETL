@@ -1,0 +1,51 @@
+{
+	"name": "stage_medals",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Rank",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Team_Country",
+				"type": "varchar"
+			},
+			{
+				"name": "Gold",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Silver",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Bronze",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Total",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Rank_by_Total",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "stage",
+			"table": "medals"
+		}
+	}
+}
