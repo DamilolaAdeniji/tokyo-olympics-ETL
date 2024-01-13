@@ -862,6 +862,376 @@
 						"typeProperties": {
 							"waitTimeInSeconds": 5
 						}
+					},
+					{
+						"name": "Truncate stage medals",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "data_transformation",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[dbo].[trun_stage_medals]"
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureSqlDatabase1",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "load dim_medals",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "load_stage_medals",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[dbo].[load_dim_medals]"
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureSqlDatabase1",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "load_stage_medals",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Truncate stage medals",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"wildcardFolderPath": "transformed_data/medals",
+									"wildcardFileName": "*.csv",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Rank",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rank",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Team_Country",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Team_Country",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Gold",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Gold",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Silver",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Silver",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Bronze",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Bronze",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Total",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Total",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Rank by Total",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rank_by_Total",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "transformed_medals",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "stage_medals",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "load_stage_teams",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Truncate stage teams",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"wildcardFolderPath": "transformed_data/teams",
+									"wildcardFileName": "*.csv",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "TeamName",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "TeamName",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Discipline",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Discipline",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Country",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Country",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Event",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Event",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "transformed_teams",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "stage_teams",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "Truncate stage teams",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "data_transformation",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[dbo].[trun_stage_teams]"
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureSqlDatabase1",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "load dim_teams",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "load_stage_teams",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[dbo].[load_dim_teams]"
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureSqlDatabase1",
+							"type": "LinkedServiceReference"
+						}
 					}
 				],
 				"policy": {
@@ -886,7 +1256,11 @@
 				"[concat(variables('factoryId'), '/datasets/stage_athletes')]",
 				"[concat(variables('factoryId'), '/datasets/stage_coaches')]",
 				"[concat(variables('factoryId'), '/datasets/transformed_entriesgender')]",
-				"[concat(variables('factoryId'), '/datasets/stage_entriesgender')]"
+				"[concat(variables('factoryId'), '/datasets/stage_entriesgender')]",
+				"[concat(variables('factoryId'), '/datasets/transformed_medals')]",
+				"[concat(variables('factoryId'), '/datasets/stage_medals')]",
+				"[concat(variables('factoryId'), '/datasets/transformed_teams')]",
+				"[concat(variables('factoryId'), '/datasets/stage_teams')]"
 			]
 		},
 		{
@@ -1890,6 +2264,202 @@
 				"typeProperties": {
 					"schema": "stage",
 					"table": "entriesgender"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/transformed_medals')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "transformed_data/medals",
+						"fileSystem": "tokyo-olympic-data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Rank",
+						"type": "String"
+					},
+					{
+						"name": "Team_Country",
+						"type": "String"
+					},
+					{
+						"name": "Gold",
+						"type": "String"
+					},
+					{
+						"name": "Silver",
+						"type": "String"
+					},
+					{
+						"name": "Bronze",
+						"type": "String"
+					},
+					{
+						"name": "Total",
+						"type": "String"
+					},
+					{
+						"name": "Rank by Total",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/stage_medals')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "Rank",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Team_Country",
+						"type": "varchar"
+					},
+					{
+						"name": "Gold",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Silver",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Bronze",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Total",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Rank_by_Total",
+						"type": "int",
+						"precision": 10
+					}
+				],
+				"typeProperties": {
+					"schema": "stage",
+					"table": "medals"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/transformed_teams')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "transformed_data/teams",
+						"fileSystem": "tokyo-olympic-data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "TeamName",
+						"type": "String"
+					},
+					{
+						"name": "Discipline",
+						"type": "String"
+					},
+					{
+						"name": "Country",
+						"type": "String"
+					},
+					{
+						"name": "Event",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/stage_teams')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "TeamName",
+						"type": "varchar"
+					},
+					{
+						"name": "Discipline",
+						"type": "varchar"
+					},
+					{
+						"name": "Country",
+						"type": "varchar"
+					},
+					{
+						"name": "Event",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "stage",
+					"table": "teams"
 				}
 			},
 			"dependsOn": [
