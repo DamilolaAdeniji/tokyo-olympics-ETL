@@ -1,0 +1,36 @@
+{
+	"name": "stage_entriesgender",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Discipline",
+				"type": "varchar"
+			},
+			{
+				"name": "Female",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Male",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Total",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "stage",
+			"table": "entriesgender"
+		}
+	}
+}
