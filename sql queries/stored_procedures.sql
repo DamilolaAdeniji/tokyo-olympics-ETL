@@ -19,7 +19,6 @@
     go 
 -- COACHES ETL
 
-    -- procedure to clear all rows in the stage_athletes_table before loading data into it
     create procedure trun_stage_coaches
     as begin
         truncate table stage.coaches 
@@ -37,7 +36,6 @@
     go 
 -- entriesgender ETL
 
-    -- procedure to clear all rows in the stage_athletes_table before loading data into it
     create procedure trun_stage_entriesgender
     as begin
         truncate table stage.entriesgender 
@@ -55,7 +53,6 @@
     go 
 -- MEDALS ETL
 
-    -- procedure to clear all rows in the stage_athletes_table before loading data into it
     create procedure trun_stage_medals
     as begin
         truncate table stage.medals 
@@ -73,7 +70,6 @@
     go 
 -- TEAMS ETL
 
-    -- procedure to clear all rows in the stage_athletes_table before loading data into it
     create procedure trun_stage_teams
     as begin
         truncate table stage.teams 
